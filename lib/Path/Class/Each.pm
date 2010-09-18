@@ -98,7 +98,7 @@ sub Path::Class::File::iterator {
   my $mode  = delete $opt{iomode};
   my $chomp = delete $opt{chomp};
 
-  croak "unknown options: ", join ', ', sort keys %opt
+  croak "Unknown options: ", join ', ', sort keys %opt
    if keys %opt;
 
   my $fh = $self->open( $mode ) or croak "Can't read $self: $!\n";
