@@ -255,7 +255,7 @@ sub Path::Class::Dir::next_dir { shift->next_file( no_files => 1 ) }
 Call a supplied callback for each file in a directory. The same options
 that L<iterator> accepts may be passed:
 
-  dir( 'foo', 'bar' )->each( sub { print "File: $_\n" } );
+  dir( 'foo', 'bar' )->each( dirs => 1, sub { print "Object: $_\n" } );
 
 Within the callback the current file will be in C<$_>.
 
