@@ -130,6 +130,15 @@ INTERFACE
     Return an iterator that returns each of the files in and below a
     directory.
 
+    By default only files are returned. The following options may be
+    supplied to modify this behaviour:
+
+    "dirs"
+        Return directories as well as files.
+
+    "no_files"
+        Return directories only.
+
    "Path::Class::Dir->next_file"
     Return the next file from a recursive search of a directory. Returns
     "undef" when all lines have been read.
@@ -142,13 +151,19 @@ INTERFACE
         print "File: $file\n";
       }
 
+   "Path::Class::Dir->next_dir"
+    Return the next directory from a recursive search of a directory.
+
    "Path::Class::Dir->each"
     Call a supplied callback for each file in a directory. The same options
     that iterator accepts may be passed:
 
-      dir( 'foo', 'bar' )->each( sub { print "File: $_\n" } );
+      dir( 'foo', 'bar' )->each( dirs => 1, sub { print "Object: $_\n" } );
 
     Within the callback the current file will be in $_.
+
+   "Path::Class::Dir->each_dir"
+    Call a supplied callback for each subdirectory in a directory.
 
 DEPENDENCIES
     Path::Class
