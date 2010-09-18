@@ -2,13 +2,17 @@
 
 use strict;
 use warnings;
-use Test::More tests => 1;
+use Test::More tests => 2;
+
+use Path::Class;
 use Path::Class::Each;
 
-{
-  my @obj = ();
-  dir( 't' )->each( sub { push @obj, $_ } );
-  is_deeply \@obj,
-   [ file( 't', '00-load.t' ) . '', file( 't', 'each.t' ) . '' ],
-   'dir->each';
+for my $opt ( [], [ chomp => 1 ] ) {
+  my $file = file( 't', 'data', 'lines' );
+
+  my @want = $file->slurp( @$opt );
+  my @got  = ();
+
+  $file->each( @$opt, sub { push @got, $_ } );
+  is_deeply \@got, \@want, "lines OK";
 }

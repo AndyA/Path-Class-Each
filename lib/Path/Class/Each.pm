@@ -3,10 +3,10 @@ package Path::Class::Each;
 use warnings;
 use strict;
 
-our $VERSION = '0.01';
+use Carp qw( croak );
+use Path::Class;
 
-1;
-__END__
+our $VERSION = '0.01';
 
 =head1 NAME
 
@@ -20,19 +20,54 @@ This document describes Path::Class::Each version 0.01
 
     use Path::Class::Each;
 
-    my $ffp = Path::Class::Each->new( qw( /foo /bar ) );
-
-    print "Union:\n";
-    my $union = $ffp->any_iterator
-    print "  $_\n" while $_ = $union->();
-
-    print "Intersection:\n";
-    my $inter = $ffp->all_iterator
-    print "  $_\n" while $_ = $inter->();
-
 =head1 DESCRIPTION
 
 =head1 INTERFACE
+
+=head2 C<< Path::Class::File->each >>
+
+=cut
+
+sub Path::Class::File::iterator {
+  my $self = shift;
+  my @opt  = @_;
+
+  croak "each requires a number of name => value options"
+   if @opt % 2;
+
+  my %opt   = ( @opt, iomode => 'r' );
+  my $mode  = delete $opt{iomode};
+  my $chomp = delete $opt{chomp};
+
+  croak "unknown options: ", join ', ', sort keys %opt
+   if keys %opt;
+
+  my $fh = $self->open( $mode ) or croak "Can't read $self: $!\n";
+  return sub {
+    my $line = <$fh>;
+    return unless defined $line;
+    chomp $line if $chomp;
+    return $line;
+  };
+}
+
+=head2 C<< Path::Class::File->each >>
+
+=cut
+
+sub Path::Class::File::each {
+  my $self = shift;
+  my @opt  = @_;
+  my $cb   = pop @opt;
+
+  my $iter = $self->iterator( @opt );
+  while ( defined( local $_ = $iter->() ) ) {
+    $cb->();
+  }
+}
+
+1;
+__END__
 
 =head1 DEPENDENCIES
 
