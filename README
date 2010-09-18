@@ -2,7 +2,7 @@ NAME
     Path::Class::Each - Iterate lines in a file
 
 VERSION
-    This document describes Path::Class::Each version 0.01
+    This document describes Path::Class::Each version 0.02
 
 SYNOPSIS
       use Path::Class;
