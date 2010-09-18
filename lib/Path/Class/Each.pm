@@ -10,7 +10,7 @@ our $VERSION = '0.01';
 
 =head1 NAME
 
-Path::Class::Each - Iterator lines in a file
+Path::Class::Each - Iterate lines in a file
 
 =head1 VERSION
 
@@ -46,7 +46,7 @@ C<Path::Class::Each> augments L<Path::Class::File> to provide three different
 ways of iterating over the lines of a file.
 
 C<Path::Class::File> provides a C<slurp> method that returns the
-contents of a file (either as a scalar or an array) put has no support
+contents of a file (either as a scalar or an array) but has no support
 for reading a file a line at a time. For large files it may be desirable
 to iterate through the lines; that's where this module comes in.
 
