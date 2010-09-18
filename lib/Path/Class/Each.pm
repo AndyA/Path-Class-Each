@@ -176,6 +176,7 @@ __END__
 
 =head1 DEPENDENCIES
 
+L<Path::Class>
 
 =head1 AUTHOR
 
