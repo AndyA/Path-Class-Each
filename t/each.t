@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 4;
+use Test::More tests => 6;
 
 use Path::Class;
 use Path::Class::Each;
@@ -27,5 +27,14 @@ for my $opt ( [], [ chomp => 1 ] ) {
       push @got, $line;
     }
     is_deeply \@got, \@want, "lines OK: iterator";
+  }
+
+  {
+    my @got = ();
+
+    while ( defined( my $line = $file->next( @$opt ) ) ) {
+      push @got, $line;
+    }
+    is_deeply \@got, \@want, "lines OK: next";
   }
 }

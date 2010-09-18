@@ -27,6 +27,12 @@ This document describes Path::Class::Each version 0.01
     print "Line: $line\n";
   }
 
+  # 'next' interface
+  my $file = file( 'foo', 'bar' );
+  while ( defined( my $line = $file->next ) ) {
+    print "Line: $line\n";
+  }
+
   # Callback interface
   file( 'foo', 'bar' )->each(
     sub {
@@ -63,6 +69,21 @@ sub Path::Class::File::iterator {
     chomp $line if $chomp;
     return $line;
   };
+}
+
+=head2 C<< Path::Class::File->next >>
+
+=cut
+
+sub Path::Class::File::next {
+  my $self = shift;
+
+  $self->{_iter} = $self->iterator( @_ )
+   unless $self->{_iter};
+
+  my $line = $self->{_iter}->();
+  delete $self->{_iter} unless defined $line;
+  return $line;
 }
 
 =head2 C<< Path::Class::File->each >>
