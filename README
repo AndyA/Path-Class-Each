@@ -67,7 +67,8 @@ DESCRIPTION
     directory.
 
 INTERFACE
-  "Path::Class::File->iterator"
+  File Iterators
+   "Path::Class::File->iterator"
     Get an iterator that returns the lines in a file. Returns "undef" when
     there are no more lines to return.
 
@@ -92,7 +93,7 @@ INTERFACE
 
       my $chomper = file('foo', 'bar')->iterator( chomp => 1 );
 
-  "Path::Class::File->next"
+   "Path::Class::File->next"
     Return the next line from a file. Returns "undef" when all lines have
     been read.
 
@@ -116,7 +117,7 @@ INTERFACE
     iterator each time it is called with the result that the first line of
     the file will be returned repeatedly.
 
-  "Path::Class::File->each"
+   "Path::Class::File->each"
     Call a supplied callback for each line in a file. The same options that
     iterator accepts may be passed:
 
@@ -124,11 +125,12 @@ INTERFACE
 
     Within the callback the current line will be in $_.
 
-  "Path::Class::Dir::iterator"
+  Directory Iterators
+   "Path::Class::Dir->iterator"
     Return an iterator that returns each of the files in and below a
     directory.
 
-  "Path::Class::Dir::next_file"
+   "Path::Class::Dir->next_file"
     Return the next file from a recursive search of a directory. Returns
     "undef" when all lines have been read.
 
@@ -140,7 +142,7 @@ INTERFACE
         print "File: $file\n";
       }
 
-  "Path::Class::Dir::each"
+   "Path::Class::Dir->each"
     Call a supplied callback for each file in a directory. The same options
     that iterator accepts may be passed:
 
