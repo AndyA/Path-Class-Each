@@ -161,9 +161,8 @@ Within the callback the current line will be in C<$_>.
 =cut
 
 sub Path::Class::File::each {
-  my $self = shift;
-  my @opt  = @_;
-  my $cb   = pop @opt;
+  my ( $self, @opt ) = @_;
+  my $cb = pop @opt;
 
   my $iter = $self->iterator( @opt );
   while ( defined( local $_ = $iter->() ) ) {
