@@ -8,6 +8,8 @@ SYNOPSIS
       use Path::Class;
       use Path::Class::Each;
 
+      ## Files ##
+
       # Iterator interface
       my $iter = file( 'foo', 'bar' )->iterator;
       while ( defined( my $line = $iter->() ) ) {
@@ -27,14 +29,42 @@ SYNOPSIS
         }
       );
 
+      ## Directories ##
+  
+      # Iterator interface
+      my $iter = dir( 'foo', 'bar' )->iterator;
+      while ( defined( my $file = $iter->() ) ) {
+        print "File: $file\n";
+      }
+
+      # 'next' interface
+      my $file = dir( 'foo', 'bar' );
+      while ( defined( my $file = $dir->next_file ) ) {
+        print "File: $file\n";
+      }
+
+      # Callback interface
+      dir( 'foo', 'bar' )->each(
+        sub {
+          print "File: $_\n";
+        }
+      );
+
 DESCRIPTION
-    "Path::Class::Each" augments Path::Class::File to provide three
-    different ways of iterating over the lines of a file.
+    "Path::Class::Each" augments Path::Class::File and Path::Class::Dir to
+    provide three different ways of iterating over the lines of a file and
+    three ways of iterating the files recursively contained in a directory.
 
     "Path::Class::File" provides a "slurp" method that returns the contents
     of a file (either as a scalar or an array) but has no support for
     reading a file a line at a time. For large files it may be desirable to
     iterate through the lines; that's where this module comes in.
+
+    "Path::Class::Dir" provides "children" which returns the files and
+    directories immediately contained in a directory but does not expose a
+    'find' interface to recursively search a directory. This module provides
+    iterators that visit all the files in the directory tree below a
+    directory.
 
 INTERFACE
   "Path::Class::File->iterator"
@@ -94,7 +124,33 @@ INTERFACE
 
     Within the callback the current line will be in $_.
 
+  "Path::Class::Dir::iterator"
+    Return an iterator that returns each of the files in and below a
+    directory.
+
+  "Path::Class::Dir::next_file"
+    Return the next file from a recursive search of a directory. Returns
+    "undef" when all lines have been read.
+
+    Internally iterator is called if necessary to create a new iterator. The
+    same options that iterator accepts may be passed to "next_file":
+
+      my $dir = dir( 'foo', 'bar' );
+      while ( defined( my $file = $dir->next_file ) ) {
+        print "File: $file\n";
+      }
+
+  "Path::Class::Dir::each"
+    Call a supplied callback for each file in a directory. The same options
+    that iterator accepts may be passed:
+
+      dir( 'foo', 'bar' )->each( sub { print "File: $_\n" } );
+
+    Within the callback the current file will be in $_.
+
 DEPENDENCIES
+    Path::Class
+
 AUTHOR
     Andy Armstrong "<andy@hexten.net>"
 
