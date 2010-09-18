@@ -9,7 +9,7 @@ my $build = MyBuilder->new(
   dist_version_from => 'lib/Path/Class/Each.pm',
   requires          => {
     'Test::More'       => 0,
-    'Path::Class' => '0.21',
+    'Path::Class' => '0.18',
   },
   PL_files       => {},
   add_to_cleanup => ['Path-Class-Each-*'],
