@@ -1,0 +1,16 @@
+*.tar.gz
+.lwpcookies
+.prove
+Build
+Path-Class-Each-*
+Makefile
+Makefile.old
+Session.vim
+_build*
+blib*
+cover_db
+pm_to_blib*
+MANIFEST.bak
+MYMETA.yml
+META.yml
+.*.swp
