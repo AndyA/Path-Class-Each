@@ -1,5 +1,5 @@
 NAME
-    Path::Class::Each - Iterator lines in a file
+    Path::Class::Each - Iterate lines in a file
 
 VERSION
     This document describes Path::Class::Each version 0.01
@@ -32,7 +32,7 @@ DESCRIPTION
     different ways of iterating over the lines of a file.
 
     "Path::Class::File" provides a "slurp" method that returns the contents
-    of a file (either as a scalar or an array) put has no support for
+    of a file (either as a scalar or an array) but has no support for
     reading a file a line at a time. For large files it may be desirable to
     iterate through the lines; that's where this module comes in.
 
