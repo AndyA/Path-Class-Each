@@ -10,7 +10,7 @@ our $VERSION = '0.01';
 
 =head1 NAME
 
-Path::Class::Each - Callback interface to Path::Class objects
+Path::Class::Each - Iterator lines in a file
 
 =head1 VERSION
 
@@ -18,13 +18,27 @@ This document describes Path::Class::Each version 0.01
 
 =head1 SYNOPSIS
 
-    use Path::Class::Each;
+  use Path::Class;
+  use Path::Class::Each;
+
+  # Iterator interface
+  my $iter = file( 'foo', 'bar' )->iterator;
+  while ( defined( my $line = $iter->() ) ) {
+    print "Line: $line\n";
+  }
+
+  # Callback interface
+  file( 'foo', 'bar' )->each(
+    sub {
+      print "Line: $_\n";
+    }
+  );
 
 =head1 DESCRIPTION
 
 =head1 INTERFACE
 
-=head2 C<< Path::Class::File->each >>
+=head2 C<< Path::Class::File->iterator >>
 
 =cut
 
