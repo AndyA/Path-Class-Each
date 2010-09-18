@@ -6,7 +6,7 @@ use strict;
 use Carp qw( croak );
 use Path::Class;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 NAME
 
@@ -14,7 +14,7 @@ Path::Class::Each - Iterate lines in a file
 
 =head1 VERSION
 
-This document describes Path::Class::Each version 0.02
+This document describes Path::Class::Each version 0.03
 
 =head1 SYNOPSIS
 
