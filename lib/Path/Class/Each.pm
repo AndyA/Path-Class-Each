@@ -83,7 +83,9 @@ directory.
 
 =head1 INTERFACE
 
-=head2 C<< Path::Class::File->iterator >>
+=head2 File Iterators
+
+=head3 C<< Path::Class::File->iterator >>
 
 Get an iterator that returns the lines in a file. Returns C<undef> when
 there are no more lines to return.
@@ -141,7 +143,7 @@ sub Path::Class::File::iterator {
   };
 }
 
-=head2 C<< Path::Class::File->next >>
+=head3 C<< Path::Class::File->next >>
 
 Return the next line from a file. Returns C<undef> when all lines have
 been read.
@@ -154,7 +156,7 @@ The same options that L<iterator> accepts may be passed to C<next>:
     print "Line: $line\n";
   }
 
-=head3 NOTE
+=head4 NOTE
 
 It may be tempting to use an idiom like:
 
@@ -167,7 +169,7 @@ That will create a new C<Path::Class::File> and, therefore, a new
 iterator each time it is called with the result that the first line of
 the file will be returned repeatedly.
 
-=head2 C<< Path::Class::File->each >>
+=head3 C<< Path::Class::File->each >>
 
 Call a supplied callback for each line in a file. The same options that
 L<iterator> accepts may be passed:
@@ -176,7 +178,9 @@ L<iterator> accepts may be passed:
 
 Within the callback the current line will be in C<$_>.
 
-=head2 C<< Path::Class::Dir->iterator >>
+=head2 Directory Iterators
+
+=head3 C<< Path::Class::Dir->iterator >>
 
 Return an iterator that returns each of the files in and below a
 directory.
@@ -203,7 +207,7 @@ sub Path::Class::Dir::iterator {
   };
 }
 
-=head2 C<< Path::Class::Dir->next_file >>
+=head3 C<< Path::Class::Dir->next_file >>
 
 Return the next file from a recursive search of a directory. Returns
 C<undef> when all lines have been read.
@@ -216,7 +220,7 @@ The same options that L<iterator> accepts may be passed to C<next_file>:
     print "File: $file\n";
   }
 
-=head2 C<< Path::Class::Dir->each >>
+=head3 C<< Path::Class::Dir->each >>
 
 Call a supplied callback for each file in a directory. The same options
 that L<iterator> accepts may be passed:
