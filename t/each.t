@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 9;
+use Test::More tests => 11;
 
 use Path::Class;
 use Path::Class::Each;
@@ -46,6 +46,7 @@ for my $opt ( [], [ chomp => 1 ] ) {
     file( 't', 'data', 'foo', 'f2' ) . '',
     file( 't', 'data', 'lines' ) . '',
   );
+  my @wantdirs = ( dir( 't', 'data', 'foo' ) . '', );
 
   {
     my @got  = ();
@@ -69,6 +70,26 @@ for my $opt ( [], [ chomp => 1 ] ) {
       push @got, $file;
     }
     is_deeply [ sort @got ], \@want, 'dir: next_file';
+  }
+
+  {
+    my @got = ();
+
+    while ( defined( my $dir = $dir->next_dir ) ) {
+      push @got, $dir;
+    }
+    is_deeply [ sort @got ], \@wantdirs, 'dir: next_dir';
+  }
+
+  {
+    my @got = ();
+    my $iter = $dir->iterator( dirs => 1 );
+    while ( defined( my $file = $iter->() ) ) {
+      push @got, $file;
+    }
+
+    is_deeply [ sort @got ], [ sort @want, @wantdirs ],
+     'dir: iterator, dirs and files';
   }
 }
 
