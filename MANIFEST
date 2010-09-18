@@ -6,6 +6,9 @@ MANIFEST
 META.yml
 README
 t/00-load.t
+t/data/foo/f1
+t/data/foo/f2
+t/data/lines
 t/each.t
 t/pod-coverage.t
 t/pod.t
