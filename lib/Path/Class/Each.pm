@@ -176,7 +176,7 @@ L<iterator> accepts may be passed:
 
 Within the callback the current line will be in C<$_>.
 
-=head2 C<< Path::Class::Dir::iterator >>
+=head2 C<< Path::Class::Dir->iterator >>
 
 Return an iterator that returns each of the files in and below a
 directory.
@@ -203,7 +203,7 @@ sub Path::Class::Dir::iterator {
   };
 }
 
-=head2 C<< Path::Class::Dir::next_file >>
+=head2 C<< Path::Class::Dir->next_file >>
 
 Return the next file from a recursive search of a directory. Returns
 C<undef> when all lines have been read.
@@ -216,7 +216,7 @@ The same options that L<iterator> accepts may be passed to C<next_file>:
     print "File: $file\n";
   }
 
-=head2 C<< Path::Class::Dir::each >>
+=head2 C<< Path::Class::Dir->each >>
 
 Call a supplied callback for each file in a directory. The same options
 that L<iterator> accepts may be passed:
