@@ -48,10 +48,6 @@ sub ACTION_disttest {
   $self->SUPER::ACTION_disttest( @_ );
 }
 
-sub ACTION_critic {
-  exec qw( perlcritic -1 -q -profile perlcriticrc lib/ ), glob 't/*.t';
-}
-
 sub ACTION_tags {
   exec(
     qw(
