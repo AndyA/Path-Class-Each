@@ -42,9 +42,48 @@ This document describes Path::Class::Each version 0.01
 
 =head1 DESCRIPTION
 
+C<Path::Class::Each> augments L<Path::Class::File> to provide three different
+ways of iterating over the lines of a file.
+
+C<Path::Class::File> provides a C<slurp> method that returns the
+contents of a file (either as a scalar or an array) put has no support
+for reading a file a line at a time. For large files it may be desirable
+to iterate through the lines; that's where this module comes in.
+
 =head1 INTERFACE
 
 =head2 C<< Path::Class::File->iterator >>
+
+Get an iterator that returns the lines in a file. Returns C<undef> when
+there are no more lines to return.
+
+  my $iter = file( 'foo', 'bar' )->iterator;
+  while ( defined( my $line = $iter->() ) ) {
+    print "Line: $line\n";
+  }
+
+If the file can not be opened an exception will be thrown (using
+C<croak>).
+
+The following options may be passed as key, value pairs:
+
+=over
+
+=item C<< chomp >>
+
+Newlines will be trimmed from each line read.
+
+=item C<< iomode >>
+
+Passed as the C<mode> argument to C<open>. See
+L<Path::Class::File::open> for details. If omitted defaults to 'r'
+(read-only).
+
+=back
+
+Here's how options are passed:
+
+  my $chomper = file('foo', 'bar')->iterator( chomp => 1 );
 
 =cut
 
@@ -73,6 +112,30 @@ sub Path::Class::File::iterator {
 
 =head2 C<< Path::Class::File->next >>
 
+Return the next line from a file. Returns C<undef> when all lines have
+been read.
+
+Internally L<iterator> is called if necessary to create a new iterator.
+The same options that L<iterator> accepts may be passed to C<next>:
+
+  my $file = file( 'foo', 'bar' );
+  while ( defined( my $line = $file->next( chomp => 1 ) ) ) {
+    print "Line: $line\n";
+  }
+
+=head3 NOTE
+
+It may be tempting to use an idiom like:
+
+  # DON'T DO THIS
+  while ( my $line = file('foo')->next ) {
+    ...
+  }
+
+That will create a new C<Path::Class::File> and, therefore, a new
+iterator each time it is called with the result that the first line of
+the file will be returned repeatedly.
+
 =cut
 
 sub Path::Class::File::next {
@@ -87,6 +150,13 @@ sub Path::Class::File::next {
 }
 
 =head2 C<< Path::Class::File->each >>
+
+Call a supplied callback for each line in a file. The same options that
+L<iterator> accepts may be passed:
+
+  file( 'foo', 'bar' )->each( chomp => 1, sub { print "Line: $_\n" } );
+
+Within the callback the current line will be in C<$_>.
 
 =cut
 
